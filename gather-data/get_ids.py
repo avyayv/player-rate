@@ -3,6 +3,7 @@ import json
 import define_player
 import requests
 import pdb
+ids = []
 headers = {
     'Accept-Encoding': 'gzip, deflate, sdch',
     'Accept-Language': 'en-US,en;q=0.8,ru;q=0.6',
@@ -25,3 +26,4 @@ for i in data["resultSets"]:
     for c in i["rowSet"]:
         if c[-1] == "Y":
             player = define_player.Player(c[0], c[2], c[6])
+            ids.append(c[0])

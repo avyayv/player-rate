@@ -1,13 +1,12 @@
 players = []
 import json
-class Player:
 
+class Player:
     def __init__(self, id, name, current):
         self.id = id
         self.name = name
         self.current = current
         self.seasons = []
-
         players.append(self)
     def getId():
         return self.id
