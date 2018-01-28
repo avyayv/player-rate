@@ -1,11 +1,13 @@
 players = []
+import json
 class Player:
+
     def __init__(self, id, name, current):
         self.id = id
         self.name = name
         self.current = current
         self.seasons = []
-        
+
         players.append(self)
     def getId():
         return self.id
@@ -13,6 +15,9 @@ class Player:
         return self.name
     def current():
         return self.current
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+            sort_keys=True, indent=4)
 
 def findById(id):
     for player in players:

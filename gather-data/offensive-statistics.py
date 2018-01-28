@@ -10,25 +10,21 @@ headers = {
 }
 
 
-
-for player in get_ids.define_player.players:
-    try:
+with open('data.json', 'a') as file:
+    for player in get_ids.define_player.players:
         params = (
             ('LeagueID', '00'),
             ('PerMode', 'PerGame'),
             ('PlayerID', player.id)
         )
-
         session = FuturesSession()
         response = session.get("http://stats.nba.com/stats/playerprofilev2", headers=headers, params=params)
         html = response.result().content
         data = json.loads(html)
-        for i in data["resultSets"]:
-            for c in i["rowSet"]:
-                season = get_ids.define_player.Season(player.id, c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10],
-                c[11], c[12], c[13], c[14], c[15], c[16], c[17], c[18], c[19],
-                c[20], c[21], c[22], c[23], c[24], c[25], c[26])
-                print(season.pts)
-                player.seasons.append(season)
-    except:
-        print(player.name)
+        i = data["resultSets"][0]
+        for c in i["rowSet"]:
+            season = get_ids.define_player.Season(player.id, c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10],
+            c[11], c[12], c[13], c[14], c[15], c[16], c[17], c[18], c[19],
+            c[20], c[21], c[22], c[23], c[24], c[25], c[26])
+            player.seasons.append(season)
+        file.write(player.toJSON())

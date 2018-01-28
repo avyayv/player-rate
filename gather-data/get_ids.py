@@ -20,6 +20,7 @@ response = requests.get('http://stats.nba.com/stats/commonallplayers', headers=h
 
 html = response.text
 data = json.loads(html.decode())
+
 for i in data["resultSets"]:
     for c in i["rowSet"]:
         if c[-1] == "Y":
