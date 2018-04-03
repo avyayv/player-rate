@@ -25,5 +25,6 @@ data = json.loads(html.decode())
 for i in data["resultSets"]:
     for c in i["rowSet"]:
         if c[-1] == "Y":
-            player = define_player.Player(c[0], c[2], c[6])
-            ids.append(c[0])
+            if int(c[4]) > 2000:
+                player = define_player.Player(c[0], c[2], c[6])
+                ids.append(c[0])
