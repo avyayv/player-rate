@@ -1,4 +1,5 @@
 players = []
+games = []
 import json
 
 class Player:
@@ -76,7 +77,20 @@ class DefensiveSeason:
         self.usg_pct = usg_pct
         self.pace = pace
         self.pie = pie
-
+class Game:
+    def __init__(self, date, id, home_score, away_score, attendance, home_team_id, away_team_id, home_players, away_players, home_inactive_players, away_inactive_players):
+        self.date = date
+        self.id = id
+        self.home_score = home_score
+        self.away_score = away_score
+        self.attendance = attendance
+        self.home_team_id = home_team_id
+        self.away_team_id = away_team_id
+        self.home_players = home_players
+        self.away_players = away_players
+        self.home_inactive_players = home_inactive_players
+        self.away_inactive_players = away_inactive_players
+        games.append(self)
 
 def findByName(name):
     # this is not good unless you are debugging something

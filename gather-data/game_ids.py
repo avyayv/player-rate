@@ -31,6 +31,7 @@ for date in use_these_dates:
     html = response.result().content
     data = json.loads(html)
     resultSets = data["resultSets"][0]
+    
     for i in resultSets["rowSet"]:
         with open('gameids.json', 'a') as file:
             file.write(i[2])
