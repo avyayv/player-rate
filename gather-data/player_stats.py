@@ -14,9 +14,9 @@ headers = {
 
 number = 0
 # if you adjust start_id make sure to comment the [
-with open('data.json', 'a') as file:
-    file.write('[')
-start_id = 0
+# with open('data.json', 'a') as file:
+#     file.write('[')
+start_id = 1900
 
 found_id = False
 for player in get_ids.define_player.players:
