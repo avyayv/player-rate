@@ -9,6 +9,9 @@ class Player:
         self.current = current
         self.offensive_seasons = []
         self.defensive_seasons = []
+        self.height = 0
+        self.weight = 0
+        self.position = ""
         players.append(self)
     def getId():
         return self.id
@@ -27,6 +30,7 @@ def findById(id):
 
 class OffensiveSeason:
     def __init__(self, playerid, year, teamid, teamabr, age, gp, gs, min, fgm, fga, fgp, threem, threea, threep, ftm, fta, ftp, oreb, dreb, reb, ast, stl, blk, tov, pf, pts):
+
         self.playerid = playerid
         self.year = year
         self.teamid = teamid
