@@ -26,9 +26,9 @@ for player in data:
                 if player["name"] == "Victor Oladipo":
                     an.append([a["net_rating"]/30.0, a["pie"]/30.0, a["ast_to"]/5.0, a["ts_pct"]/5.0, a["tm_tov_pct"]/100.0, a["ast_ratio"]/100.0, a["win_p"], a["usg_pct"], a["defensive_rating"]/200.0, a["offensive_rating"]/200.0, a["pace"]/170.0, n["age"]/50.0, n["pts"]/50.0, n["ast"]/20.0, n["reb"]/40.0, n["stl"]/40.0, n["blk"]/40.0, at["usg_pct"], a["min"]/48.0, at["min"]/48.0, height/90.0, weight/400.0, position/7.0])
                     actual = nt["pts"]
-                Y.append(nt["pts"]/50.0)
+                Y.append(nt["pts"])
                 print("yes")
-            except (IndexError, ValueError):
+            except (IndexError, ValueError, ZeroDivisionError):
                 continue
 model = Sequential()
 model.add(Dense(23, input_dim=23, activation='relu'))
