@@ -4,6 +4,7 @@ import json
 import time
 import datetime
 import argparse
+import pdb
 
 from requests_futures.sessions import FuturesSession
 
@@ -21,18 +22,99 @@ headers = {
 }
 
 number = 0
-
+def retStuff(year, str):
+    return (
+        ('College', ''),
+        ('Conference', ''),
+        ('Country', ''),
+        ('DateFrom', ''),
+        ('DateTo', ''),
+        ('Division', ''),
+        ('DraftPick', ''),
+        ('DraftYear', ''),
+        ('GameScope', ''),
+        ('Height', ''),
+        ('LastNGames', '0'),
+        ('LeagueID', '00'),
+        ('Location', ''),
+        ('Month', '0'),
+        ('OpponentTeamID', '0'),
+        ('Outcome', ''),
+        ('PORound', '0'),
+        ('PerMode', 'PerGame'),
+        ('PlayerExperience', ''),
+        ('PlayerOrTeam', 'Player'),
+        ('PlayerPosition', ''),
+        ('PtMeasureType', str),
+        ('Season', year),
+        ('SeasonSegment', ''),
+        ('SeasonType', 'Regular Season'),
+        ('StarterBench', ''),
+        ('TeamID', '0'),
+        ('VsConference', ''),
+        ('VsDivision', ''),
+        ('Weight', '')
+    )
 # if you adjust start_id make sure to comment the [
 
 start_id = args.startid
 file_name = args.filename
-# with open(file_name[0], 'a') as file:
-#     file.write('[')
+with open(file_name[0], 'a') as file:
+    file.write('[')
 found_id = False
+years = ["2013-14", "2014-15", "2015-16", "2016-17", "2017-18"]
+for year in years:
+    #^(SpeedDistance)|(Rebounding)|(Possessions)|(CatchShoot)|(PullUpShot)|(Defense)|(Drives)|(Passing)|(ElbowTouch)|(PostTouch)|(PaintTouch)|(Efficiency)$'.
+    defParams = retStuff(year, "Defense")
+    driveParams = retStuff(year, "Drives")
+    efficiencyParams = retStuff(year, "Efficiency")
+    passParams = retStuff(year, "Passing")
+    postParams = retStuff(year, "PostTouch")
+
+    session = FuturesSession()
+
+    defResponse = session.get("http://stats.nba.com/stats/leaguedashptstats", headers=headers, params=defParams)
+    defData = json.loads(defResponse.result().content)
+
+    driveResponse = session.get("http://stats.nba.com/stats/leaguedashptstats", headers=headers, params=driveParams)
+    driveData = json.loads(driveResponse.result().content)
+
+    efficiencyResponse = session.get("http://stats.nba.com/stats/leaguedashptstats", headers=headers, params=efficiencyParams)
+    efficiencyData = json.loads(efficiencyResponse.result().content)
+
+    passResponse = session.get("http://stats.nba.com/stats/leaguedashptstats", headers=headers, params=passParams)
+    passData = json.loads(passResponse.result().content)
+
+    postResponse = session.get("http://stats.nba.com/stats/leaguedashptstats", headers=headers, params=postParams)
+    postData = json.loads(postResponse.result().content)
+
+    """
+    drivepf, drivefta, passesmade, passesreceived, secondaryassist, potentialassist,
+    pointscreatedbyassist, overallassist, postups, touches, postpasses, posttov,
+    postpf, pulluppoints, catchshootpoints, posttouchpoints, elbowtouchpoints"""
+    for player in defData["resultSets"][0]["rowSet"]:
+        advanced = get_ids.define_player.PlayerTracking(year, player["DEF_RIM_FGM"], player["DEF_RIM_FGA"], player["DEF_RIM_FGP"], "", "", "",
+        "", "", "", "", "", "",
+        "", "", "", "", "", "",
+        "", "", "", "", "")
+        get_ids.define_player.findById(defData["resultSets"][0]["rowSet"][0][0]).advanced_statistics.append(advanced)
+    for player in driveData["resultSets"][0]["rowSet"]:
+        advanced = get_ids.define_player.findById(driveDatae["resultSets"][0]["rowSet"][0][0]).find_advanced_for_year(year)
+        advanced.drivepts = players[15]
+        advanced.driveast = players[19]
+        advanced.drivepass = players[17]
+        advanced.drivepf = players[23]
+        advanced.drivefta = players[13]
+    for player in efficiencyData["resultSets"][0]["rowSet"]:
+        advanced = get_ids.define_player.findById(defData["resultSets"][0]["rowSet"][0][0]).find_advanced_for_year(year)
+        advanced.drivepts = players[15]
+        advanced.driveast = players[19]
+        advanced.drivepass = players[17]
+        advanced.drivepf = players[23]
+        advanced.drivefta = players[13]
+
 for player in get_ids.define_player.players:
-
     if start_id[0] == "0":
-
         found_id = True
     elif start_id[0] == str(player.id):
         found_id = True
