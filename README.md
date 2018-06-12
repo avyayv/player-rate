@@ -5,7 +5,7 @@ You can clone this repository and get the code that gets data.
 
 To do list
 
-- [checkbox:checked] Gather Data
-- [checkbox:checked] Create Neural Network
+- [x] Gather Data
+- [x] Create Neural Network
 - [ ] Create Statistic
 - [ ] Automatically Generate Trade Requests That Will Benefit Your Team
