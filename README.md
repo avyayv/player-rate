@@ -13,7 +13,7 @@ This repo contains:
 
 You must have nba_py, Keras, bs4(beautifulSoup), lxml, numpy, matplotlib, and tensorflow for everything to work. 
 
-The current code is set up to train for point predictions. You can change this by changing the statistic_wanted variable. 
+The current code is set up to train for point predictions. You can change this by changing the `statistic_wanted` variable. 
 It will save to the file set in the code.
 
 The data-gathering can be achieved by running `python playerstats.py start_player_id file_to_save.json`
