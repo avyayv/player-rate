@@ -61,6 +61,10 @@ start_id = args.startid
 file_name = args.filename
 # with open(file_name[0], 'a') as file:
 #     file.write('[')
+<<<<<<< HEAD
+=======
+print(start_id)
+>>>>>>> 56beb951a7ff7bb02e1d3f2039a8be5a9324235a
 found_id = False
 years = ["2013-14", "2014-15", "2015-16", "2016-17", "2017-18"]
 for year in years:
@@ -134,6 +138,7 @@ for player in get_ids.define_player.players:
         found_id = True
     elif start_id[0] == str(player.id):
         found_id = True
+<<<<<<< HEAD
     # if(len(player.advanced_statistics) > 0):
     if found_id:
         number = number + 1
@@ -214,4 +219,87 @@ for player in get_ids.define_player.players:
 
         except(IndexError, KeyError):
             print("Whoops, weird guy just appeared "+player.name)
+=======
+    if(len(player.advanced_statistics) > 0):
+        print(str(player.id), str(start_id[0]))
+        if found_id:
+            number = number + 1
+            try:
+                params = (
+                    ('LeagueID', '00'),
+                    ('PerMode', 'PerGame'),
+                    ('PlayerID', player.id)
+                )
+                id_param = (
+                    ('PlayerID', player.id),
+                    ('h', "h")
+                )
+                advanced_params = (
+                    ('DateFrom', ''),
+                    ('DateTo', ''),
+                    ('GameSegment', ''),
+                    ('LastNGames', '0'),
+                    ('LeagueID', '00'),
+                    ('Location', ''),
+                    ('MeasureType', 'Advanced'),
+                    ('Month', '0'),
+                    ('OpponentTeamID', '0'),
+                    ('Outcome', ''),
+                    ('PORound', '0'),
+                    ('PaceAdjust', 'N'),
+                    ('PerMode', 'PerGame'),
+                    ('PlayerID', player.id),
+                    ('PlusMinus', 'N'),
+                    ('Period', '0'),
+                    ('Rank', 'N'),
+                    ('Season', '2017-18'),
+                    ('SeasonSegment', ''),
+                    ('SeasonType', 'Regular Season'),
+                    ('ShotClockRange', ''),
+                    ('Split', 'yoy'),
+                    ('VsConference', ''),
+                    ('VsDivision', '')
+                )
+
+                session = FuturesSession()
+                height_weight_pos_response = session.get("http://stats.nba.com/stats/commonplayerinfo", headers=headers, params=id_param)
+                response = session.get("http://stats.nba.com/stats/playerprofilev2", headers=headers, params=params)
+                advanced_response = session.get("http://stats.nba.com/stats/playerdashboardbyyearoveryear", headers=headers, params=advanced_params)
+                common_html = height_weight_pos_response.result().content
+                common_data = json.loads(common_html)
+                player.height = common_data["resultSets"][0]["rowSet"][0][10]
+                player.weight = common_data["resultSets"][0]["rowSet"][0][11]
+                player.position = common_data["resultSets"][0]["rowSet"][0][14]
+
+                html = response.result().content
+                data = json.loads(html)
+                i = data["resultSets"][0]
+                for c in i["rowSet"]:
+                    season = get_ids.define_player.OffensiveSeason(player.id, c[1], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10],
+                    c[11], c[12], c[13], c[14], c[15], c[16], c[17], c[18], c[19],
+                    c[20], c[21], c[22], c[23], c[24], c[25], c[26])
+                    player.offensive_seasons.append(season)
+                html_advanced = advanced_response.result().content
+                data_advanced = json.loads(html_advanced)
+                i_advanced = data_advanced["resultSets"][1]
+                for c in i_advanced["rowSet"]:
+                    season = get_ids.define_player.DefensiveSeason(player.id, c[2], c[3],
+                    0, c[5], 0, c[9], c[6], c[7], c[8], c[10], c[11], c[12], c[13], c[14],
+                    c[15], c[16], c[17], c[19], c[21], c[22], c[23], c[24], c[1])
+                    player.defensive_seasons.append(season)
+                if get_ids.define_player.players.index(player) != len(get_ids.define_player.players)-1:
+                    print(get_ids.define_player.players[get_ids.define_player.players.index(player)+1].id, player.name, player.height, player.weight, player.position, player.advanced_statistics[0].postups, str((float(number)/float(len(get_ids.define_player.players)))*100)+"%")
+                else:
+                    print("Its ZUBAC")
+                with open(file_name[0], 'a') as file:
+                    file.write(json.dumps(player, default=lambda o: o.__dict__))
+                    if get_ids.define_player.players.index(player) != len(get_ids.define_player.players)-1:
+                        file.write(',\n')
+                    else:
+                        file.write(']')
+                time.sleep(0.2)
+
+            except(KeyError, IndexError):
+                print("Whoops, weird guy just appeared "+player.name)
+>>>>>>> 56beb951a7ff7bb02e1d3f2039a8be5a9324235a
     # file.write(player.toJSON())v
