@@ -94,10 +94,7 @@ for counter,i in enumerate(soup.tbody.find_all('tr')):
 
         player.signed_using = years_and_info[8].text
         try:
-<<<<<<< HEAD
-=======
             print(define_player.findByName(player.name))
->>>>>>> 56beb951a7ff7bb02e1d3f2039a8be5a9324235a
             define_player.findByName(player.name).salary = player
         except AttributeError:
             continue

@@ -22,6 +22,15 @@ for player_html in soup.tbody.find_all('tr'):
                 if ("(Fr)" not in p.text[16:] and "(So)" not in p.text[16:] and "(Jr)" not in p.text[16:] and "(Sr)" not in p.text[16:]):
                     print("International "+tags[0].text)
                 else:
-                    print("Domestic "+tags[0].text)
+                    name = ""
+                    if ("(Fr)" in p.text[16:]):
+                        name = "Freshman"
+                    elif ("(So)" in p.text[16:]):
+                        name = "Sophomore"
+                    elif ("(Jr)" in p.text[16:]):
+                        name = "Junior"
+                    elif ("(Sr)" in p.text[16:]):
+                        name = "Senior"
+                    print("Domestic "+tags[0].text+" "+name)
 
     # print(tags)
