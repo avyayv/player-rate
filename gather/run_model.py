@@ -51,7 +51,6 @@ for player in data:
                 Y.append(nt["ast"]/50.0)
             except (IndexError, ValueError, KeyError):
                 pass
-
         if player["name"] == player_name:
             height = (int(player["height"].split("-")[0])*12)+int(player["height"].split("-")[1])
             weight = int(player["weight"])

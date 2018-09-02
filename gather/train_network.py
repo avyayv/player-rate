@@ -33,19 +33,19 @@ for player in data:
                 print("yes")
             except (IndexError, ValueError, ZeroDivisionError):
                 continue
-model = Sequential()
-model.add(Dense(23, input_dim=23, activation='relu'))
-model.add(Dense(11, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
-model.compile(optimizer='adam', loss='mse')
-model.fit(X, Y, epochs=1000, batch_size=10)
-scores = model.evaluate(X, Y)
-# print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
-predictions = model.predict(an)
-
-
-model_json = model.to_json()
-with open("points_model.json", "w") as json_file:
-    json_file.write(model_json)
-model.save_weights("points_model.h5")
-print("Saved model to disk")
+# model = Sequential()
+# model.add(Dense(23, input_dim=23, activation='relu'))
+# model.add(Dense(11, activation='relu'))
+# model.add(Dense(1, activation='sigmoid'))
+# model.compile(optimizer='adam', loss='mse')
+# model.fit(X, Y, epochs=1000, batch_size=10)
+# scores = model.evaluate(X, Y)
+# # print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+# predictions = model.predict(an)
+#
+#
+# model_json = model.to_json()
+# with open("points_model.json", "w") as json_file:
+#     json_file.write(model_json)
+# model.save_weights("points_model.h5")
+# print("Saved model to disk")

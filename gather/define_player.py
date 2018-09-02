@@ -1,5 +1,6 @@
 players = []
 games = []
+college_player = []
 import json
 import pdb
 from bs4 import BeautifulSoup
@@ -60,10 +61,10 @@ class PlayerContract:
     def dumps(self):
       return "Name "+self.name+" Current Year "+self.y1
 
+
 class OffensiveSeason:
     def __init__(self, playerid, year, teamid, teamabr, age, gp, gs, min, fgm, fga, fgp,
     threem, threea, threep, ftm, fta, ftp, oreb, dreb, reb, ast, stl, blk, tov, pf, pts):
-
         self.playerid = playerid
         self.year = year
         self.teamid = teamid
@@ -88,6 +89,61 @@ class OffensiveSeason:
         self.tov = tov
         self.pf = pf
         self.pts = pts
+
+class CollegeSeason:
+    def __init__(self, name, season, school, classo, gp, gs, min, fgm, fga, fgp, threem,
+    threea, threep, ftm, fta, ftp, orb, drb, trb, ast, stl, blk, pf, tov, pts,
+    owinshares, dwinshares, winshares, per, offensive_rating, defensive_rating, usagerate):
+        self.name = name
+        self.season = season
+        self.school = school
+        self.classo = classo
+        self.gp = gp
+        self.gs = gs
+        self.min = min
+        self.fgm = fgm
+        self.fga = fga
+        self.fgp = fgp
+        self.threem = threem
+        self.threea = threea
+        self.threep = threep
+        self.ftm = ftm
+        self.fta = fta
+        self.ftp = ftp
+        self.orb = orb
+        self.drb = drb
+        self.trb = trb
+        self.ast = ast
+        self.stl = stl
+        self.blk = blk
+        self.pf = pf
+        self.tov = tov
+        self.pts = pts
+        self.owinshares = owinshares
+        self.dwinshares = dwinshares
+        self.winshares = winshares
+        self.per = per
+        self.offensive_rating = offensive_rating
+        self.defensive_rating = defensive_rating
+        self.usagerate = usagerate
+        self.rating = 0
+        college_player.append(self)
+    def rate(self):
+        try:
+            number = 0
+            if self.classo == "Freshman":
+                number = 10
+            elif self.classo == "Sophomore":
+                number = 7.5
+            elif self.classo == "Junior":
+                number = 5
+            else:
+                number = 2.5
+            self.rating = (float(self.pts)+(float(self.ast)*2.3)+(float(self.trb)*1.2)+float(number)+(float(self.blk)*1.2)+(float(self.stl)*1.2))+(float(self.winshares)/10.0)+(float(self.fgp)*15)+(float(self.ftp)*10)+(float(self.threep)*10)
+            return self.rating
+        except ValueError:
+            self.rating = 0
+            return 0
 
 class DefensiveSeason:
     def __init__(self, playerid, teamid, teamabr, age, gp, gs, min, wins, losses, win_p, offensive_rating, defensive_rating, net_rating, ast_pct, ast_to, ast_ratio, oreb_percentage, dreb_percentage, tm_tov_pct, ts_pct, usg_pct, pace, pie, year):
